@@ -1,0 +1,53 @@
+.header
+  &-top
+    height: 40px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    font-family: "Inter"
+    font-size: 14px
+
+  &-bottom
+    height: 64px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    font-family: "Inter"
+
+  &-city
+    display: flex
+    align-items: center
+    position: relative
+    & .city
+      margin-left: 10px
+    & .arrow
+      width: 7px
+      height: 7px
+      transform: rotate(45deg) translateY(-40%)
+
+      border-right: 1px solid $textColor
+      border-bottom: 1px solid $textColor
+      &-wrapper
+        display: inline-block
+        width: 12px
+  &-profile
+    display: flex
+    align-items: center
+    & img
+      margin-right: 10px
+
+  &-right, &-left
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &-left
+    width: 40%
+
+  &-right
+    width: 35%
+
+@media screen and ( max-width: $mobile )
+  .header
+    &-left
+      width: 100%
