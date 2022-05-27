@@ -15,7 +15,9 @@ export default {
   css: ["@/assets/css/main.css", "~/assets/sass/app.sass"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/smoothscroll',
+    { src: '@/plugins/vue-carousel.js', mode: 'client' }  
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -29,6 +31,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    'v-wave/nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
