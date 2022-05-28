@@ -1,11 +1,20 @@
 <template>
   <div class="layout layout-default">
-    <Header/>
-    <Nuxt class="container" />
+    <Header />
+    <HeaderMenu
+      class="desktop-hide"
+      :class="{'active': menuMobile}"
+    />
+    <Nuxt class="container page" />
+    <Footer />
   </div>
 </template>
 <script>
 export default {
-  
+  computed: {
+    menuMobile () {
+      return this.$store.state.interface.menuMobile
+    },
+  }
 }
 </script>

@@ -1,4 +1,5 @@
 .header
+  z-index: 30
   &-top
     height: 40px
     display: flex
@@ -9,10 +10,16 @@
 
   &-bottom
     height: 64px
-    display: flex
+    display: grid
+    grid-template-columns: 1fr 3fr 0.8fr auto
+    grid-template-rows: 1fr
     align-items: center
-    justify-content: space-between
     font-family: "Inter"
+
+  &-categories
+    display: flex
+    justify-content: space-between
+    line-height: 22px
 
   &-city
     display: flex
@@ -20,16 +27,6 @@
     position: relative
     & .city
       margin-left: 10px
-    & .arrow
-      width: 7px
-      height: 7px
-      transform: rotate(45deg) translateY(-40%)
-
-      border-right: 1px solid $textColor
-      border-bottom: 1px solid $textColor
-      &-wrapper
-        display: inline-block
-        width: 12px
   &-profile
     display: flex
     align-items: center
@@ -47,7 +44,54 @@
   &-right
     width: 35%
 
+  &-burger
+    width: 100%
+    height: 26px
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    & div
+      width: 100%
+      height: 2px
+      border-radius: 1px
+      background: $textColor
+      transition: .2s all ease-in-out
+      &:last-child
+        width: 70%
+    &.active
+      overflow: hidden
+      width: 100%
+      height: 32px
+      & div
+        &:nth-child(1)
+          width: 45.25px
+          transform: rotate(45deg) translate(1px, 13px)
+        &:nth-child(2)
+          width: 0
+
+        &:last-child
+          width: 45.25px
+          transform: rotate(-45deg) translate(1px, -12px)
+
+  &-menu
+    background: $white
+    // background: #000
+    position: absolute
+    transform: translateX(-100%)
+    width: 100%
+    height: 100vh
+    z-index: 20
+    transition: .3s all ease
+    &.active
+      transform: translateX(0)
+
 @media screen and ( max-width: $mobile )
   .header
+    position: absolute
+    width: 100%
+    background: $white
     &-left
       width: 100%
+    &-bottom
+      display: flex
+      justify-content: space-between

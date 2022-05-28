@@ -1,59 +1,61 @@
 <template>
   <div class="header-bottom">
-    <NuxtLink to="/">
+    <NuxtLink
+      to="/"
+      class="flex align-center"
+    >
       <img
         src="~assets/images/logo.svg"
         class="logo"
       >
     </NuxtLink>
-    <HeaderCategories />
+    <HeaderCategories class="mobile-hide" />
 
-    <Button orange>
+    <HelpersSpace></HelpersSpace>
+
+    <Button
+      orange
+      class="mobile-hide"
+    >
       <img src="~assets/images/icon/global/cart.svg">
       {{currPrice}} ₽
     </Button>
 
-    <!-- Доделать -->
-    <client-only>
-      <carousel v-bind="options">
-        <slide
-          v-for="i in 5"
-          :key="i"
-          class="img-wrapper"
-        >
-          <img :src="`~assets/images/logo.svg`" />
-        </slide>
-      </carousel>
-    </client-only>
+    <Button
+      width="32px"
+      class="desktop-hide"
+      @click="toggleMenuMobile"
+    >
+      <div
+        class="header-burger"
+        :class="{'active': menuMobile}"
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </Button>
+
   </div>
 </template>
 <script>
 export default {
   computed: {
+    menuMobile () {
+      return this.$store.state.interface.menuMobile
+    },
     currPrice () {
       return this.$store.state.cart.currPrice
     }
   },
   data () {
     return {
-      options: {
-        loop: true,
-        perPage: 3,
-        paginationEnabled: false
-      }
     }
   },
+  methods: {
+    toggleMenuMobile () {
+      this.$store.commit('interface/set_menu_mobile')
+    }
+  }
 }
 </script>
-<style lang="sass">
-.carousel-wrapper
-  padding: 40px
-  height: 150px
-  .VueCarousel-slide
-    text-align: center
-.img-wrapper img
-  margin: auto
-  width: 200px
-  height: 100px
-  background-image: linear-gradient(gray 100%, transparent 0)
-</style>
