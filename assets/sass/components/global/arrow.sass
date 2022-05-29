@@ -1,6 +1,7 @@
 .arrow
   width: 7px
   height: 7px
+  transition: .3s all ease
   transform: rotate(45deg) translateY(-40%)
 
   border-right: 1px solid $textColor
@@ -8,3 +9,6 @@
   &-wrapper
     display: inline-block
     width: 12px
+
+  &.active
+    transform: rotate(-135deg) translateY(-20%) translateX(-30%)

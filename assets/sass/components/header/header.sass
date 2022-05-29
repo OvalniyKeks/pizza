@@ -1,5 +1,6 @@
 .header
   z-index: 30
+  background: $white
   &-top
     height: 40px
     display: flex
@@ -80,10 +81,17 @@
     transform: translateX(-100%)
     width: 100%
     height: 100vh
+    // margin-top: 
     z-index: 20
     transition: .3s all ease
     &.active
       transform: translateX(0)
+
+    &__drop
+      .link
+        margin-bottom: 16px
+        &:last-child
+          margin-bottom: 0
 
 @media screen and ( max-width: $mobile )
   .header
@@ -95,3 +103,17 @@
     &-bottom
       display: flex
       justify-content: space-between
+    &-profile
+      padding: 20px 0
+    &-menu
+      font-family: "Inter"
+      font-size: 16px
+      &__link
+        margin-top: 20px
+        &:last-child
+          margin-bottom: 20px
+      & .footer-item
+        &:first-child
+          margin-top: 20px
+        &:last-child
+          margin-bottom: 20px

@@ -53,8 +53,13 @@ export default {
     }
   },
   methods: {
-    toggleMenuMobile () {
-      this.$store.commit('interface/set_menu_mobile')
+    toggleMenuMobile (data) {
+      this.$store.commit('interface/set_menu_mobile', data)
+    }
+  },
+  watch: {
+    '$route.name' () {
+      this.toggleMenuMobile(false)
     }
   }
 }

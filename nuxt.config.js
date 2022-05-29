@@ -16,7 +16,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/smoothscroll',
-    { src: '@/plugins/vue-carousel.js', mode: 'client' }  
+    { src: '@/plugins/vclickoutside.js', mode: 'client' }  
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -32,7 +32,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'v-wave/nuxt',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    'vue-ssr-carousel/nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

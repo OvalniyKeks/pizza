@@ -1,10 +1,13 @@
 <template>
   <div
     class="btn"
-    @click="$emit('click', $event)"
+    @click="$emit('click')"
     :class="{'btn-orange': orange, 'btn-transparent': transparent}"
-    :style="`width:${width}; min-width: ${width}`"
+    :style="`width:${width}; min-width: ${width}; ${setHeight}`"
     v-wave="optionsWave ? optionsWave : optionsDefault"
+    :href='to'
+    v-smooth-scroll
+    v-bind="$attrs"
   >
     <slot></slot>
   </div>
@@ -15,7 +18,9 @@ export default {
     orange: Boolean,
     transparent: Boolean,
     optionsWave: Object,
-    width: String
+    width: String,
+    height: String,
+    to: String
   },
   computed: {
     optionsDefault () {
@@ -30,6 +35,12 @@ export default {
         trigger: 'auto',
         tagName: 'div'
       }
+    },
+    setHeight () {
+      if (this.height) {
+        return `height: ${this.height}; padding-top: 0; padding-bottom: 0`
+      }
+      return ''
     }
   }
 }
