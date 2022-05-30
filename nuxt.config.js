@@ -16,7 +16,6 @@ export default {
     host: "localhost",
   },
 
-  target: 'static',
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "~/assets/sass/app.sass"],
