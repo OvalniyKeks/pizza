@@ -10,9 +10,12 @@
       Проверить адрес доставки
     </label>
 
+    <br class="desktop-hide" />
+
     <Input
       name="check"
       placeholder="Адрес"
+      address
     >
     <template v-slot:prefix>
       <img
@@ -33,6 +36,10 @@
 </template>
 <script>
 export default {
-
+  data () {
+    return {
+      address: {}
+    }
+  },
 }
 </script>

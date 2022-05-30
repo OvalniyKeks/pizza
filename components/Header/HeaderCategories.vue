@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     categories () {
-      return this.$store.state.interface.categories
+      return this.$store.state.products.categories
     }
   }
 }

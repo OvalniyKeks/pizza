@@ -1,0 +1,46 @@
+.product
+  &-main
+    font-family: "SF Pro Text"
+    position: relative
+    max-width: 300px
+    color: $textColor
+    cursor: pointer
+    & img
+      width: 100%
+    & .title
+      font-weight: 600
+      font-size: 18px
+      line-height: 24px
+      margin-bottom: 6px
+    & .description
+      line-height: 22px
+      margin-bottom: 10px
+    & .price
+      color: $primary
+      font-weight: 600
+      font-size: 18px
+      line-height: 24px
+    & .status
+      position: absolute
+      left: 0
+      top: 20px
+      &-item
+        text-transform: uppercase
+        font-family: 'Inter'
+        background: $red
+        font-size: 14px
+        color: $white
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 7px 16px
+        margin-bottom: 10px
+        border-top-right-radius: 6px
+        border-bottom-right-radius: 6px
+
+@media screen and ( max-width: $mobile )
+  .product
+    &-main
+      width: 100%
+      max-width: 100%
+      margin-bottom: 30px

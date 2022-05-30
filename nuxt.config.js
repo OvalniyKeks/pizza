@@ -11,12 +11,20 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  server: {
+    port: '3001',
+    host: "localhost",
+  },
+
+  target: 'static',
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "~/assets/sass/app.sass"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/smoothscroll',
-    { src: '@/plugins/vclickoutside.js', mode: 'client' }  
+    { src: '@/plugins/vclickoutside.js', mode: 'client' },
+    { src: '@/plugins/yandexmap.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

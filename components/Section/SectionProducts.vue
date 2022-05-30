@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!-- <YandexMap /> -->
+  <div class="section-products">
+    <slot></slot>
   </div>
 </template>
 <script>
