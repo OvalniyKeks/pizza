@@ -12,10 +12,13 @@ export default {
   },
 
   server: {
-    port: '3000',
+    port: process.env.PORT,
     host: "localhost",
   },
 
+  env: {
+    baseUrl: process.env.BASE_URL,
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "~/assets/sass/app.sass"],
@@ -57,5 +60,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extractCSS: true,
+  },
 }
