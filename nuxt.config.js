@@ -46,7 +46,8 @@ export default {
     '@nuxtjs/pwa',
     'v-wave/nuxt',
     'vue-scrollto/nuxt',
-    'vue-ssr-carousel/nuxt'
+    'vue-ssr-carousel/nuxt',
+    'portal-vue/nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

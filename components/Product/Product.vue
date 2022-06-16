@@ -1,5 +1,8 @@
 <template>
-  <Card class="product-main">
+  <Card
+    class="product-main"
+    @click="$emit('click', $event)"
+  >
     <div class="status">
       <div
         v-if="product.new"
@@ -19,6 +22,7 @@
       <div class="description">{{product.description}}</div>
       <div class="flex align-center justify-between">
         <Button
+          @click="addProduct"
           orange
           height='48px'
         >
@@ -30,7 +34,7 @@
   </Card>
 </template>
 <script>
-import placeholderPizza from '../assets/images/pizza-placeholder.png'
+import placeholderPizza from '../../assets/images/pizza-placeholder.png'
 export default {
   props: {
     product: Object
@@ -43,6 +47,11 @@ export default {
   computed: {
     fromPrice () {
       return this.product?.price[0].price
+    }
+  },
+  methods: {
+    addProduct () {
+      this.$store.commit('cart/add_cart', this.product)
     }
   }
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueSmoothScroll from 'vue2-smooth-scroll'
 Vue.use(VueSmoothScroll,
   {
-    updateHistory: false
+    updateHistory: false,
+    offset: -100
   }
 )

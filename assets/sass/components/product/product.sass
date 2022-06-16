@@ -6,7 +6,8 @@
     color: $textColor
     cursor: pointer
     & img
-      width: 100%
+      width: calc( 100% - 40px )
+      padding: 20px
     & .title
       font-weight: 600
       font-size: 18px
@@ -37,6 +38,24 @@
         margin-bottom: 10px
         border-top-right-radius: 6px
         border-bottom-right-radius: 6px
+
+  &-compound
+    text-align: center
+    font-size: 14px
+    line-height: 22px
+    & .btn
+      padding: 20px
+      width: 105px
+      height: 105px
+      display: flex
+      align-items: center
+      justify-content: center
+      margin-bottom: 8px
+      border-radius: 12px
+    &.disable
+      color: $lightgray
+      & .btn
+        border-color: $lightgray
 
 @media screen and ( max-width: $mobile )
   .product

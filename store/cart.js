@@ -1,6 +1,5 @@
 export const state = () => ({
-  products: [],
-  currPrice: 0
+  products: []
 })
 
 export const mutations = {
@@ -10,6 +9,14 @@ export const mutations = {
 }
 
 export const getters = {
+  currPrice: (state) => {
+    let price = 0
+    // Доделать
+    for (const product of state.products) {
+      price += product.price[0].price
+    }
+    return price
+  }
 }
 
 export const actions = {}

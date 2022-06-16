@@ -2,6 +2,7 @@
   <div
     class="card"
     :style="`padding: ${padding}`"
+    @click="$emit('click', $event)"
   >
     <slot></slot>
   </div>

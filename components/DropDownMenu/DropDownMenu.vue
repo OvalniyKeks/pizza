@@ -29,14 +29,11 @@ export default {
   },
   methods: {
     setCenterPosition () {
-      // if (!this.value) {
-      //   return
-      // }
       const currEl = this.$refs[this.id]
       const parentCoord = currEl.parentNode.getBoundingClientRect()
       const targetCenter = parentCoord.left - parentCoord.width
       currEl.style.left = targetCenter + 'px'
-      currEl.style.top = parentCoord.top + (this.paddingTop ?? 30) + 'px'
+      currEl.style.top = parentCoord.top + (Number(this.paddingTop) ?? 30) + 'px'
     },
     close () {
       this.$emit('input', false)

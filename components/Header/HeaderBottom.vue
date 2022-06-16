@@ -45,12 +45,9 @@ export default {
       return this.$store.state.interface.menuMobile
     },
     currPrice () {
-      return this.$store.state.cart.currPrice
-    }
-  },
-  data () {
-    return {
-    }
+      return this.$store.getters['cart/currPrice']
+    },
+
   },
   methods: {
     toggleMenuMobile (data) {

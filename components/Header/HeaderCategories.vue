@@ -1,9 +1,14 @@
 <template>
-  <div class="header-categories">
+  <div
+    class="header-categories"
+    :class="{'header-scroll__categories': headerFixed}"
+  >
     <div
       v-for="(cat, i) of categories"
       :key="`header-category-${i}`"
       class="header-category link"
+      :href='`#${cat.id}`'
+      v-smooth-scroll
     >
       {{cat.label}}
     </div>
@@ -17,6 +22,7 @@
       </span>
       <DropDownMenu
         v-model="dropdownMenu"
+        :paddingTop='0'
         class="header-menu__drop"
       >
         <NuxtLink
@@ -76,12 +82,26 @@
 export default {
   data () {
     return {
-      dropdownMenu: false
+      dropdownMenu: false,
+      headerFixed: false,
+      updateDropDownMenu: false
     }
   },
   computed: {
     categories () {
       return this.$store.state.products.categories
+    },
+    currScroll () {
+      return this.$store.state.interface.currScroll
+    }
+  },
+  watch: {
+    currScroll (val) {
+      if (val < 136) {
+        this.headerFixed = false
+      } else {
+        this.headerFixed = true
+      }
     }
   }
 }

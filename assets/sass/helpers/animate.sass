@@ -1,0 +1,53 @@
+// Center
+.modal-fade-center
+  &-enter-active
+    animation: fade 0.3s
+    & .modal-center
+      animation: transformModalCenter 0.3s ease
+  &-leave-active
+    animation: fade 0.2s reverse
+    & .modal-center
+      animation: transformModalCenter 0.3s ease reverse
+
+  &-enter-from,
+  &-leave-to
+    opacity: 0
+
+@keyframes transformModalCenter
+  0%
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -30%)
+  50%
+    transform: translate(-50%, -55%)
+  100%
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+// Right
+.modal-fade-right
+  &-enter-active
+    animation: fade 0.2s
+    & .modal-right
+      animation: tranformModalRight 0.3s ease
+  &-leave-active
+    animation: fade 0.2s reverse
+    & .modal-right
+      animation: tranformModalRight 0.3s ease reverse
+
+  &-enter-from,
+  &-leave-to
+    opacity: 0
+
+@keyframes tranformModalRight
+  0%
+    transform: translateX(70%)
+  100%
+    transform: translateX(0)
+
+@keyframes fade
+  0%
+    opacity: 0
+  100%
+    opacity: 1
