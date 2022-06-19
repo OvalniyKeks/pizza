@@ -1,7 +1,7 @@
 <template>
   <div
     class="btn"
-    @click="$emit('click')"
+    @click="$emit('click', $event)"
     :class="{'btn-orange': orange, 'btn-transparent': transparent, 'btn-bordered': bordered}"
     :style="`width:${width}; min-width: ${width}; ${setHeight}`"
     v-wave="optionsWave ? optionsWave : optionsDefault"

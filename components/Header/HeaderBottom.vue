@@ -16,10 +16,18 @@
     <Button
       orange
       class="mobile-hide"
+      @click="isModalCart = !isModalCart"
     >
       <img src="~assets/images/icon/global/cart.svg">
       {{currPrice}} ₽
     </Button>
+
+    <Modal
+      v-model="isModalCart"
+      align='right'
+    >
+      <ModalRight />
+    </Modal>
 
     <Button
       width="32px"
@@ -48,6 +56,11 @@ export default {
       return this.$store.getters['cart/currPrice']
     },
 
+  },
+  data () {
+    return {
+      isModalCart: false
+    }
   },
   methods: {
     toggleMenuMobile (data) {

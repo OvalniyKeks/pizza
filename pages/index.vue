@@ -73,7 +73,7 @@
       v-model="isModalProduct"
       align='center'
     >
-      <ModalCenter
+      <ProductModal
         v-model="isModalProduct"
         :product='modalProductData'
       />

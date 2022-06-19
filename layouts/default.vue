@@ -5,7 +5,10 @@
     <Nuxt class="page" />
     <Footer />
 
-    <!-- <ModalLayout /> -->
+    <PortalTarget
+      name='modal'
+      multiple
+    ></PortalTarget>
 
   </div>
 </template>

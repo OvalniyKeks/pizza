@@ -18,10 +18,7 @@
         />
       </div>
     </div>
-    <Button
-      class="modal-close"
-      @click="$emit('input', false)"
-    ></Button>
+    <ModalClose @click="$emit('input', false)" />
   </div>
 </template>
 <script>

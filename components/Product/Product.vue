@@ -22,7 +22,7 @@
       <div class="description">{{product.description}}</div>
       <div class="flex align-center justify-between">
         <Button
-          @click="addProduct"
+          @click.stop="addProduct"
           orange
           height='48px'
         >
