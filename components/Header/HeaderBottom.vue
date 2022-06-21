@@ -34,7 +34,7 @@
       @click="toggleMenuMobile"
     >
       <div
-        class="header-burger"
+        class="header-burger desktop-hide"
         :class="{ active: isMenu }"
       >
         <div></div>
@@ -45,6 +45,7 @@
 
     <Modal
       v-model="isMenu"
+      class="desktop-hide"
       align='left'
     >
       <HeaderMenu />
