@@ -2,7 +2,7 @@
   <div
     class="btn"
     @click="$emit('click', $event)"
-    :class="{'btn-orange': orange, 'btn-transparent': transparent, 'btn-bordered': bordered}"
+    :class="{'btn-orange': orange, 'btn-transparent': transparent, 'btn-bordered': bordered, 'disabled': disabled}"
     :style="`width:${width}; min-width: ${width}; ${setHeight}`"
     v-wave="optionsWave ? optionsWave : optionsDefault"
     :href='to'
@@ -21,7 +21,8 @@ export default {
     width: String,
     height: String,
     to: String,
-    bordered: Boolean
+    bordered: Boolean,
+    disabled: Boolean
   },
   computed: {
     optionsDefault () {

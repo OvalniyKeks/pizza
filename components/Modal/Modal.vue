@@ -24,6 +24,17 @@ export default {
   props: {
     value: Boolean,
     align: String
+  },
+  watch: {
+    value (val) {
+      if (val) {
+        document.body.style.overflow = "hidden"
+        document.querySelector('.layout').style.overflow = "hidden"
+      } else {
+        document.body.style.overflow = ""
+        document.querySelector('.layout').style.overflow = ""
+      }
+    }
   }
 }
 </script>

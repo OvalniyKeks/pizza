@@ -6,6 +6,7 @@ export const state = () => ({
 
 export const mutations = {
   set_menu_mobile (state, payload) {
+    // Сделать меню в Modal
     if (!state.menuMobile) {
       document.body.style.overflow = "hidden"
       document.querySelector('.layout').style.overflow = "hidden"
