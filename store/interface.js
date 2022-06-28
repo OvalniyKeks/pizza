@@ -1,6 +1,5 @@
 export const state = () => ({
   menuMobile: false,
-  modalProductData: null,
   currScroll: 0
 })
 
@@ -16,9 +15,6 @@ export const mutations = {
     }
 
     state.menuMobile = payload ?? !state.menuMobile
-  },
-  set_modal_product_data (state, payload) {
-    state.modalProductData = payload
   },
   set_curr_scroll (state, payload) {
     state.currScroll = payload

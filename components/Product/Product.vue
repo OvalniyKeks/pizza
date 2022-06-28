@@ -13,21 +13,32 @@
         class="status-item top"
       >Хит</div>
     </div>
-    <img
-      :src="product.image ? product.image : placeholderPizza"
-      alt=""
-    >
+    <img :src="image(product.image)">
     <div class="m-ma-md">
       <div class="title link">{{product.label}}</div>
       <div class="description">{{product.description}}</div>
       <div class="flex align-center justify-between">
-        <Button
-          @click.stop="addProduct"
-          orange
-          height='48px'
+        <div
+          style="height: 48px"
+          @click.stop=""
         >
-          Выбрать
-        </Button>
+          <transition name="product-count">
+            <Count
+              v-if="product.quantity"
+              :value='product.quantity'
+              @change="changeQuantity"
+              height='100%'
+            />
+            <Button
+              v-else
+              @click.stop="addProduct"
+              orange
+              height='100%'
+            >
+              Выбрать
+            </Button>
+          </transition>
+        </div>
         <div class="price">от {{fromPrice}} ₽</div>
       </div>
     </div>
@@ -47,11 +58,39 @@ export default {
   computed: {
     fromPrice () {
       return this.product?.price[0].price
-    }
+    },
   },
   methods: {
+    image (image) {
+      if (image) return image
+      return placeholderPizza
+    },
+    changeQuantity (val) {
+      // console.log(val)
+      if (val === 0) {
+        this.$store.commit('cart/remove_product', { id: this.product.id })
+        this.updateProduct(0)
+        return
+      }
+      this.$store.commit('cart/change_quantity_product', { id: this.product.id, quantity: val })
+      this.updateProduct(val)
+    },
     addProduct () {
-      this.$store.commit('cart/add_cart', this.product)
+      const product = JSON.parse(JSON.stringify(this.product))
+      product.selectPrice = product.price[0] //Доделать
+      product.selectType = product.type[0] //Доделать
+      product.quantity = 1
+      this.$store.commit('cart/add_cart', product)
+      this.updateProduct(1)
+    },
+    updateProduct (val) {
+      const commit = {
+        cat_id: this.product.cat_id,
+        id: this.product.id,
+        key: 'quantity',
+        value: val
+      }
+      this.$store.commit('products/set_product_change_key', commit)
     }
   }
 }

@@ -57,9 +57,17 @@ export const mutations = {
   },
   set_products (state, payload) {
     state.categories.map(cat => {
-      cat.products.push(payload)
+      let product = JSON.parse(JSON.stringify(payload)) //Убрать
+      product.cat_id = cat.id //Убрать
+      cat.products.push(product) // Заменить на payload
       return cat
     })
+  },
+  set_product_change_key (state, payload) {
+    console.log(payload)
+    const category = state.categories.find(cat => cat.id === payload.cat_id)
+    const product = category.products.find(item => item.id === payload.id)
+    product[payload.key] = payload.value
   }
 }
 

@@ -2,7 +2,6 @@
   <div
     class="product-compound"
     :class="{'disable': product.disable}"
-    @click="$emit('disable', product)"
   >
     <Button bordered>
       <img :src="product.icon">
@@ -13,7 +12,8 @@
 <script>
 export default {
   props: {
-    product: Object
+    product: Object,
+    type: String
   }
 }
 </script>

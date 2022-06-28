@@ -16,7 +16,7 @@
     <Button
       orange
       class="mobile-hide"
-      @click="isModalCart = !isModalCart"
+      @click="toggleModalCart"
     >
       <img src="~assets/images/icon/global/cart.svg" />
       {{ currPrice }} ₽
@@ -26,7 +26,7 @@
       v-model="isModalCart"
       align="right"
     >
-      <CartModal />
+      <CartModal v-model="isModalCart" />
     </Modal>
 
     <Button
@@ -72,6 +72,11 @@ export default {
         return
       }
       this.isMenu = !this.isMenu
+    },
+    toggleModalCart () {
+      if (this.currPrice > 0) {
+        this.isModalCart = !this.isModalCart
+      }
     },
   },
   watch: {

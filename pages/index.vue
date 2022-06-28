@@ -75,7 +75,7 @@
     >
       <ProductModal
         v-model="isModalProduct"
-        :product='modalProductData'
+        :product='isModalProductData'
       />
     </Modal>
 
@@ -83,8 +83,9 @@
 </template>
 
 <script>
+import example_compound from '../assets/images/example_compound.svg'
 export default {
-  name: 'IndexPage',
+  name: 'Main',
 
   // Удалить потом
   async asyncData ({ store }) {
@@ -95,13 +96,13 @@ export default {
     ]
     for (let i = 0; i < 8; i++) {
       const obj = {
-        id: Date.now() / Math.random(),
+        id: Math.floor(Date.now() / Math.random()),
         new: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
         top: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
         image: images[Math.floor(Math.random() * (2 - 0 + 2)) + 0],
         label: 'Чикен Сладкий Чили',
         description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соус',
-        weight: '400 г',
+        quantity: 0,
         type: [
           {
             id: 0,
@@ -116,41 +117,44 @@ export default {
           {
             id: 0,
             price: 289,
-            size: 20
+            size: 20,
+            weight: '200 г'
           },
           {
             id: 1,
             price: 380,
-            size: 28
+            size: 28,
+            weight: '300 г'
           },
           {
             id: 2,
             price: 400,
-            size: 33
+            size: 33,
+            weight: '400 г'
           },
         ],
         modificators: [
           {
             id: 0,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Моцарелла',
             price: 59
           },
           {
             id: 1,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Шампиньоны',
             price: 59
           },
           {
             id: 2,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Красный лук',
             price: 59
           },
           {
             id: 3,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Сладкий перец',
             price: 59
           },
@@ -158,28 +162,28 @@ export default {
         compound: [
           {
             id: 0,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Моцарелла',
             price: 59,
             disable: false
           },
           {
             id: 1,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Шампиньоны',
             price: 59,
             disable: false
           },
           {
             id: 2,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Красный лук',
             price: 59,
             disable: false
           },
           {
             id: 3,
-            icon: 'mocarella',
+            icon: example_compound,
             label: 'Сладкий перец',
             price: 59,
             disable: false
@@ -191,12 +195,13 @@ export default {
   },
   data () {
     return {
-      isModalProduct: false
+      isModalProduct: false,
+      isModalProductData: null
     }
   },
   methods: {
     showModalProduct (product) {
-      this.$store.commit('interface/set_modal_product_data', product)
+      this.isModalProductData = product
       this.isModalProduct = true
     }
   },
@@ -206,10 +211,7 @@ export default {
     },
     sales () {
       return this.$store.state.sale.sales
-    },
-    modalProductData () {
-      return this.$store.state.interface.modalProductData
-    },
+    }
   }
 }
 </script>

@@ -7,6 +7,7 @@
 			font-size: 32px
 		& .total
 			height: 72px
+			background: $white
 			position: absolute
 			bottom: 0
 			width: 100%
@@ -15,3 +16,13 @@
 				& .title
 					font-size: 20px
 					color: $primary
+		& .items
+			max-height: calc( 100vh - 72px - 39px - 32px )
+			overflow: auto
+			&::-webkit-scrollbar-track
+				border-radius: 4px
+			&::-webkit-scrollbar
+				width: 7px !important
+			&::-webkit-scrollbar-thumb
+				border-radius: 4px
+				background: #B6B6B6

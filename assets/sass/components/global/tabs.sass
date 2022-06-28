@@ -1,0 +1,26 @@
+.tabs
+  border: 1px solid $lightgray
+  border-radius: 6px
+  cursor: pointer
+  position: relative
+  &-slider
+    background: $primary
+    position: absolute
+    left: 0
+    height: 100%
+    border-radius: 6px
+
+.tab
+  z-index: 5
+  height: 44px
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+  border-radius: 6px
+  transition-property: left
+  transition: .2s ease-in-out
+  &.active
+    // background: $primary
+    color: $white
+    // mix-blend-mode: difference
