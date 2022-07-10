@@ -62,12 +62,6 @@ export const mutations = {
       cat.products.push(product) // Заменить на payload
       return cat
     })
-  },
-  set_product_change_key (state, payload) {
-    console.log(payload)
-    const category = state.categories.find(cat => cat.id === payload.cat_id)
-    const product = category.products.find(item => item.id === payload.id)
-    product[payload.key] = payload.value
   }
 }
 

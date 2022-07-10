@@ -25,6 +25,7 @@
     "vue-server-renderer": "^2.6.14",
     "vue-ssr-carousel": "^1.4.0",
     "vue-template-compiler": "^2.6.14",
+    "vue-the-mask": "^0.11.1",
     "vue-yandex-maps": "^0.11.9",
     "vue2-smooth-scroll": "^1.6.0",
     "webpack": "^4.46.0"

@@ -3,7 +3,7 @@
     class="btn"
     @click="$emit('click', $event)"
     :class="{'btn-orange': orange, 'btn-transparent': transparent, 'btn-bordered': bordered, 'disabled': disabled, 'flex justify-center align-center': center}"
-    :style="`width:${width}; min-width: ${width}; ${setHeight}`"
+    :style="`${setWidth}; ${setHeight};${setCustomPadding}`"
     v-wave="optionsWave ? optionsWave : optionsDefault"
     :href='to'
     v-smooth-scroll
@@ -23,7 +23,8 @@ export default {
     to: String,
     bordered: Boolean,
     disabled: Boolean,
-    center: Boolean
+    center: Boolean,
+    padding: String
   },
   computed: {
     optionsDefault () {
@@ -42,6 +43,18 @@ export default {
     setHeight () {
       if (this.height) {
         return `height: ${this.height}; padding-top: 0; padding-bottom: 0`
+      }
+      return ''
+    },
+    setWidth () {
+      if (this.width) {
+        return `width: ${this.width}; min-width: ${this.width}; padding-left: 0; padding-right: 0`
+      }
+      return ''
+    },
+    setCustomPadding () {
+      if (this.padding) {
+        return `padding: ${this.padding}`
       }
       return ''
     }

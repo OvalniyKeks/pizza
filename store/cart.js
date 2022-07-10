@@ -1,35 +1,56 @@
 export const state = () => ({
-  products: []
+  carts: []
 })
 
 export const mutations = {
-  add_cart (state, payload) {
-    state.products.push(payload)
+  add_product_to_cart (state, product) {
+    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    if (idx !== -1) {
+      state.carts[idx].quantity++
+    } else {
+      state.carts.push({ ...product, quantity: 1 })
+    }
   },
-  change_product (state, payload) {
-    const idx = state.products.indexOf(state.products.find(item => item.id === payload.id))
-    state.products.splice(idx, 1, payload)
+  remove_product (state, product) {
+    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    if (idx !== -1) {
+      const item = state.carts[idx]
+      if (item.quantity == 1) {
+        state.carts.splice(idx, 1)
+      } else {
+        state.carts[idx].quantity--
+      }
+    }
   },
-  change_quantity_product (state, payload) {
-    const product = state.products.find(item => item.id === payload.id)
-    const idx = state.products.indexOf(product)
-    product.quantity = payload.quantity
-    state.products.splice(idx, 1, product)
-  },
-  remove_product (state, payload) {
-    const idx = state.products.indexOf(state.products.find(item => item.id === payload.id))
-    state.products.splice(idx, 1)
+  update_product (state, product) {
+    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    if (idx !== -1) {
+      state.carts.splice(idx, 1, JSON.parse(JSON.stringify(product)))
+    }
   }
 }
 
 export const getters = {
   currPrice: (state) => {
     let price = 0
-    for (const product of state.products) {
-      price += product.selectPrice.price * product.quantity
+    for (const product of state.carts) {
+      let priceModificators = 0
+      product.modificators.forEach(modificator => {
+        if (!modificator.disable) {
+          priceModificators += modificator.price
+        }
+      });
+      price += product.selectSize.price * product.quantity + priceModificators
     }
     return price
   }
 }
 
-export const actions = {}
+export const actions = {
+  addToCart ({ commit }, product) {
+    commit('add_product_to_cart', product)
+  },
+  removeFromCart ({ commit }, product) {
+    commit('remove_product', product)
+  }
+}

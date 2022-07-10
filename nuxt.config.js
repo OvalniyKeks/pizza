@@ -29,7 +29,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/smoothscroll',
     { src: '@/plugins/vclickoutside.js', mode: 'client' },
-    { src: '@/plugins/yandexmap.js', mode: 'client' }
+    { src: '@/plugins/yandexmap.js', mode: 'client' },
+    { src: '@/plugins/vmask.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

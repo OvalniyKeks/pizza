@@ -9,6 +9,14 @@
     grid-template-columns: repeat(4, 1fr)
     grid-gap: 30px
 
+@media screen and ( max-width: $tablet )
+  .section
+    &-products
+      display: flex
+      justify-content: space-between
+      grid-gap: 0
+      flex-wrap: wrap
+
 @media screen and ( max-width: $mobile )
   .section
     &-products

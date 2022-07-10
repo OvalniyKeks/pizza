@@ -10,10 +10,6 @@
           :class="`modal-${align}`"
         >
           <slot></slot>
-          <!-- <Button
-            class="modal-close"
-            @click="$emit('input', false)"
-          ></Button> -->
         </div>
       </ModalLayout>
     </transition>

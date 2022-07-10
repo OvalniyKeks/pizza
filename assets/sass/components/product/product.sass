@@ -39,10 +39,18 @@
         border-top-right-radius: 6px
         border-bottom-right-radius: 6px
 
-  &-compound
+  &-element
     text-align: center
     font-size: 14px
     line-height: 22px
+    &__list
+      width: 100%
+      &>div
+        display: flex
+        justify-content: space-between
+        align-items: center
+        flex-wrap: wrap
+
     & .btn
       padding: 20px
       width: 105px
@@ -52,10 +60,42 @@
       justify-content: center
       margin-bottom: 8px
       border-radius: 12px
-    &.disable
-      color: $lightgray
+    &.delete
+      color: $gray
+      & img
+        filter: contrast(0) opacity(50%)
       & .btn
         border-color: $lightgray
+        &::before
+          content: '\2573'
+          position: absolute
+          width: 16px
+          height: 16px
+          border: $gray 1px solid
+          border-radius: 50%
+          top: 8px
+          right: 8px
+          display: flex
+          justify-content: center
+          align-items: center
+          font-size: 6px
+    &.add
+      & .btn
+        border-color: $primary
+        &::before
+          color: $primary
+          content: '\2714'
+          position: absolute
+          width: 16px
+          height: 16px
+          border: $primary 1px solid
+          border-radius: 50%
+          top: 8px
+          right: 8px
+          display: flex
+          justify-content: center
+          align-items: center
+          font-size: 10px
 
   &-modal
     & .title
@@ -64,17 +104,48 @@
     & .subtitle
       font-size: 16px
       font-weight: 600
-
-  &-cart_modal
-    & .image
-      height: 94px
-      width: 94px
-    & .title
-      font-size: 16px
-    & .price
-      font-size: 16px
-      font-weight: 600
+    & .total
+      font-size: 20px
       color: $primary
+      font-weight: 600
+      &-weight
+        color: $gray
+        font-size: 14px
+        font-weight: normal
+        padding-left: 12px
+
+  &-card
+    &--sm
+      font-family: "Inter"
+      & .image
+        height: 94px
+        width: 94px
+      & .title
+        font-size: 16px
+        font-weight: bold
+      & .price
+        font-size: 16px
+        font-weight: 600
+        color: $primary
+    &--md
+      font-family: "Inter"
+      & .image
+        height: 120px
+        width: 120px
+      & .title
+        font-size: 20px
+        font-weight: bold
+      & .price
+        margin-left: 40px
+        font-size: 20px
+        font-weight: 600
+        color: $primary
+
+@media screen and ( max-width: $tablet )
+  .product
+    &-main
+      margin-bottom: 30px
+      max-width: calc( 50% - 15px )
 
 @media screen and ( max-width: $mobile )
   .product

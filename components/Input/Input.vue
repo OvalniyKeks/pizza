@@ -4,33 +4,44 @@
     ref="inputwrapper"
   >
     <div
-      class="prefix"
-      ref="prefix"
+      v-if="label"
+      class="label"
+      ref="label"
     >
-      <slot name="prefix"></slot>
+      {{label}}
     </div>
-    <input
-      class="input"
-      ref="input"
-      type="text"
-      :name="name"
-      :id="name"
-      :placeholder="placeholder"
-      v-model="text"
-      autocomplete="off"
-    >
-    <div
-      class="suffix"
-      ref="suffix"
-    >
-      <slot name="suffix"></slot>
+    <div class="input-inner">
+      <div
+        class="prefix"
+        ref="prefix"
+      >
+        <slot name="prefix"></slot>
+      </div>
+      <input
+        class="input"
+        ref="input"
+        :type="type"
+        :name="name"
+        :id="name"
+        :placeholder="placeholder"
+        v-model="text"
+        :autocomplete="autocompleteProp"
+        @focus="setLabelBacklight"
+        @blur="setLabelBacklight"
+      >
+      <div
+        class="suffix"
+        ref="suffix"
+      >
+        <slot name="suffix"></slot>
+      </div>
+      <InputPromptAddress
+        v-if="showPrompt"
+        ref="prompt"
+        @close='closePrompt'
+        v-model="text"
+      />
     </div>
-    <InputPromptAddress
-      v-if="showPrompt"
-      ref="prompt"
-      @close='closePrompt'
-      v-model="text"
-    />
   </div>
 </template>
 <script>
@@ -44,14 +55,31 @@ export default {
     }
   },
   props: {
+    type: {
+      type: String,
+      required: false,
+      default: 'text'
+    },
+    autocomplete: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     name: String,
     placeholder: String,
+    label: String,
     address: Boolean
   },
   data () {
     return {
       text: '',
-      showPrompt: false
+      showPrompt: false,
+      isFocus: false
+    }
+  },
+  computed: {
+    autocompleteProp () {
+      return this.autocomplete ? 'on' : 'off'
     }
   },
   methods: {
@@ -61,7 +89,7 @@ export default {
     },
     setSuffixPadding () {
       const width = this.$refs.suffix.clientWidth
-      this.$refs.input.style.paddingRight = `${width + 24}px`
+      this.$refs.input.style.paddingRight = `${width + 12}px`
     },
     closePrompt () {
       setTimeout(() => {
@@ -72,6 +100,15 @@ export default {
       if (this.showPrompt) {
         const height = this.$refs.inputwrapper.clientHeight
         this.$refs.prompt.$el.style.top = `${height + 5}px`
+      }
+    },
+    setLabelBacklight () {
+      console.log('wda')
+      this.isFocus = !this.isFocus
+      if (this.isFocus) {
+        this.$refs.label.style.color = `#FF7010`
+      } else {
+        this.$refs.label.style.color = ``
       }
     }
   },

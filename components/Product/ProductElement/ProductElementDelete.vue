@@ -1,7 +1,8 @@
 <template>
   <div
-    class="product-compound"
-    :class="{'disable': product.disable}"
+    class="product-element"
+    @click="$emit('click', $event)"
+    :class="{'delete': product.disable}"
   >
     <Button bordered>
       <img :src="product.icon">
@@ -12,8 +13,7 @@
 <script>
 export default {
   props: {
-    product: Object,
-    type: String
+    product: Object
   }
 }
 </script>

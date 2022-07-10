@@ -1,6 +1,6 @@
 <template>
   <Card
-    class="product-cart_modal m-mb-md flex"
+    class="product-card--sm m-mb-md flex flex-nowrap"
     padding='16px'
   >
     <img
@@ -13,13 +13,13 @@
         style="margin-bottom: 8px"
         @click="$emit('showModal', product)"
       >{{product.label}}</div>
-      <div style="font-size: 14px; margin-bottom: 12px">{{type(product.selectType)}} {{size(product.selectPrice)}}</div>
+      <div style="font-size: 14px; margin-bottom: 12px">{{type(product.selectType)}} {{size(product.selectSize)}}</div>
       <div class="flex justify-between align-center">
         <Count
           :value='quantity'
           @change="changeQuantity"
         />
-        <div class="price">{{product.selectPrice.price}} ₽</div>
+        <div v-if="totalPrice" class="price">{{totalPrice}} ₽</div>
       </div>
     </div>
   </Card>
@@ -36,6 +36,18 @@ export default {
       defaultImage: defaultImage
     }
   },
+  computed: {
+    totalPrice () {
+      let priceModificators = 0
+      this.product.modificators.forEach(modificator => {
+        if (!modificator.disable) {
+          priceModificators += modificator.price
+        }
+      });
+      const result = this.product.selectSize.price + priceModificators
+      return result
+    }
+  },
   methods: {
     image (image) {
       return image ?? this.defaultImage
@@ -47,22 +59,11 @@ export default {
       return `${size.size} см` ?? ''
     },
     changeQuantity (val) {
-      if (val === 0) {
-        this.$store.commit('cart/remove_product', { id: this.product.id })
-        this.updateProduct(0)
-        return
+      if (val > this.product.quantity) {
+        this.$store.commit('cart/add_product_to_cart', this.product)
+      } else {
+        this.$store.commit('cart/remove_product', this.product)
       }
-      this.$store.commit('cart/change_quantity_product', { id: this.product.id, quantity: val })
-      this.updateProduct(val)
-    },
-    updateProduct (val) {
-      const commit = {
-        cat_id: this.product.cat_id,
-        id: this.product.id,
-        key: 'quantity',
-        value: val
-      }
-      this.$store.commit('products/set_product_change_key', commit)
     }
   }
 }

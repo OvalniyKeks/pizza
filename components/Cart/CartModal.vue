@@ -8,7 +8,7 @@
       class="container items"
       v-if="products && products.length > 0"
     >
-      <ProductModalCart
+      <ProductCardSM
         v-for="(product, i) of products"
         :key="`product-in-cart-${i}`"
         :product='product'
@@ -44,7 +44,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       isModalProduct: false,
       isModalProductData: null
@@ -55,7 +55,7 @@ export default {
       return this.$store.getters['cart/currPrice']
     },
     products () {
-      return this.$store.state.cart.products
+      return this.$store.state.cart.carts
     },
     disabledCheckoutButton () {
       if (this.currPrice == 0) {

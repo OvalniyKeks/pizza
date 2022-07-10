@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs flex">
+  <div class="tabs flex flex-nowrap">
     <TabsButton
       v-for="(tab, i) of tabs"
       :key="`tab-${i}`"

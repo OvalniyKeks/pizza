@@ -15,7 +15,7 @@
                 class="logo"
               >
             </NuxtLink>
-            <div class="mobile-hide">© Copyright 2021 — Куда Пицца</div>
+            <div class="mobile-hide">© Copyright 2021 — Пицца</div>
           </div>
 
           <div class="footer-section">

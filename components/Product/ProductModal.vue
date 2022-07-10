@@ -11,11 +11,10 @@
     <div class="w-50">
       <div class="title m-mb-sm">{{localProduct.label}}</div>
       <div class="flex align-center justify-between m-mb-md">
-        <ProductCompound
-          v-for="(elCompound, i) of localProduct.compound"
-          :key="`elCompound-modal-${i}`"
-          :product='elCompound'
-          @disable='toggleElCompound'
+        <ProductElementList
+          v-model='localProduct.compound'
+          @change="updateProduct"
+          type='delete'
         />
       </div>
       <Tabs
@@ -33,20 +32,19 @@
       ></Tabs>
       <div class="subtitle m-mb-sm">Добавьте в пиццу</div>
       <div class="flex align-center justify-between m-mb-md">
-        <ProductCompound
-          v-for="(elCompound, i) of localProduct.modificators"
-          :key="`elCompound-modal-${i}`"
-          :product='elCompound'
-          @disable='toggleElCompound'
+        <ProductElementList
+          v-model='localProduct.modificators'
+          @change="updateProduct"
+          type='add'
         />
       </div>
       <div class="flex align-center justify-between">
-        <div>Итого:</div>
+        <div class="total">Итого: {{totalPrice}} &#8381; <span class="total-weight">{{totalSize}}</span></div>
         <div style="height: 48px">
           <transition name="product-count">
             <Count
-              v-if="product.quantity"
-              :value='product.quantity'
+              v-if="localProduct.quantity"
+              :value='localProduct.quantity'
               @change="changeQuantity"
               height='100%'
             />
@@ -76,16 +74,29 @@ export default {
       defaultImage: defaultImage,
       localProduct: null,
       startType: null,
-      startSize: null
+      startSize: null,
+      selectSize: null,
+
+      isProductInCart: false
     }
   },
   created () {
-    this.localProduct = JSON.parse(JSON.stringify(this.product))
+    const checkProductInCart = this.$store.state.cart.carts.find(items => items.id == this.product.id)
+    if (checkProductInCart) {
+      this.isProductInCart = true
+      this.localProduct = JSON.parse(JSON.stringify(checkProductInCart))
+    } else {
+      this.localProduct = JSON.parse(JSON.stringify(this.product))
+    }
+
+    this.selectSize = this.localProduct.price[0]
+
     if (this.localProduct.selectType) {
       this.startType = this.localProduct.selectType
     }
-    if (this.localProduct.selectPrice) {
-      this.startSize = this.localProduct.selectPrice
+    if (this.localProduct.selectSize) {
+      this.startSize = this.localProduct.selectSize
+      this.selectSize = this.localProduct.selectSize
     }
   },
   computed: {
@@ -101,57 +112,67 @@ export default {
         price.label = price.size
       }
       return prices
+    },
+    selectModificators () {
+      return this.localProduct.modificators.filter(item => !item.disable)
+    },
+    totalPrice () {
+      const defaultPrice = this.localProduct.price[0]
+      const currPrice = this.selectSize
+
+      if (!currPrice?.price || !defaultPrice?.price) {
+        return 0
+      }
+
+      let priceModificators = 0
+      this.selectModificators.forEach(modificator => {
+        priceModificators += modificator.price
+      });
+
+      let totalPrice = currPrice.price ?? defaultPrice.price
+
+      return totalPrice + priceModificators
+    },
+    totalSize () {
+      const defaultSize = this.localProduct.price[0]
+      const currSize = this.selectSize
+      return currSize?.weight ?? defaultSize?.weight
     }
   },
   methods: {
-    toggleElCompound (el) {
-      const product = this.localProduct
-      const elCompound = product.compound.find(item => item.id === el.id)
-      elCompound.disable = !elCompound.disable
-    },
     image (image) {
       return image ?? this.defaultImage
     },
     setSizes (size) {
-      this.localProduct.selectPrice = size
-      this.updateProductInCart()
-      this.updateProduct(size, 'selectPrice')
+      this.selectSize = size
+      this.localProduct.selectSize = size
+      this.updateProduct()
     },
     setTypes (type) {
       this.localProduct.selectType = type
-      this.updateProductInCart()
-      this.updateProduct(type, 'selectType')
+      this.updateProduct()
     },
     changeQuantity (val) {
-      if (val === 0) {
-        this.$store.commit('cart/remove_product', { id: this.product.id })
-        this.updateProduct(0, 'quantity')
+      if (val > this.localProduct.quantity) {
+        this.$store.commit('cart/add_product_to_cart', this.localProduct)
+        this.localProduct.quantity = val
+      } else {
+        this.$store.commit('cart/remove_product', this.localProduct)
+        this.localProduct.quantity = val
+      }
+    },
+    updateProduct () {
+      if (!this.isProductInCart) {
         return
       }
-      this.$store.commit('cart/change_quantity_product', { id: this.product.id, quantity: val })
-      this.updateProduct(val, 'quantity')
-    },
-    updateProduct (val, key) {
-      const commit = {
-        cat_id: this.localProduct.cat_id,
-        id: this.localProduct.id,
-        key: key,
-        value: val
-      }
-      this.$store.commit('products/set_product_change_key', commit)
-    },
-    updateProductInCart () {
-      if (this.localProduct.quantity > 0) {
-        this.$store.commit('cart/change_product', this.localProduct)
-      }
+      this.$store.commit('cart/update_product', this.localProduct)
     },
     addProduct () {
       this.localProduct.selectType = this.localProduct.selectType ?? this.localProduct.type[0]
-      this.localProduct.selectPrice = this.localProduct.selectPrice ?? this.localProduct.price[0]
+      this.localProduct.selectSize = this.localProduct.selectSize ?? this.localProduct.price[0]
 
       this.localProduct.quantity = 1
-      this.$store.commit('cart/add_cart', this.localProduct)
-      this.updateProduct(1, 'quantity')
+      this.$store.commit('cart/add_product_to_cart', this.localProduct)
     }
   }
 }

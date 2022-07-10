@@ -42,7 +42,7 @@
         <SectionTitle class="m-mb-lg">{{category.label}}</SectionTitle>
 
         <SectionProducts>
-          <Product
+          <ProductCard
             v-for="(product, i) of category.products"
             :key="`main-product-section-${i}`"
             :product='product'
@@ -138,25 +138,29 @@ export default {
             id: 0,
             icon: example_compound,
             label: 'Моцарелла',
-            price: 59
+            price: 59,
+            disable: true
           },
           {
             id: 1,
             icon: example_compound,
             label: 'Шампиньоны',
-            price: 59
+            price: 59,
+            disable: true
           },
           {
             id: 2,
             icon: example_compound,
             label: 'Красный лук',
-            price: 59
+            price: 59,
+            disable: true
           },
           {
             id: 3,
             icon: example_compound,
             label: 'Сладкий перец',
-            price: 59
+            price: 59,
+            disable: true
           },
         ],
         compound: [
