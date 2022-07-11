@@ -65,6 +65,7 @@ export default {
       required: false,
       default: false
     },
+    autocompleteCustomText: String,
     name: String,
     placeholder: String,
     label: String,
@@ -79,7 +80,7 @@ export default {
   },
   computed: {
     autocompleteProp () {
-      return this.autocomplete ? 'on' : 'off'
+      return this.autocompleteCustomText ?? (this.autocomplete ? 'on' : 'off')
     }
   },
   methods: {
@@ -103,7 +104,10 @@ export default {
       }
     },
     setLabelBacklight () {
-      console.log('wda')
+      if (!this.label) {
+        return
+      }
+
       this.isFocus = !this.isFocus
       if (this.isFocus) {
         this.$refs.label.style.color = `#FF7010`
