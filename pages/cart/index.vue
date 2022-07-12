@@ -116,8 +116,17 @@
         />
       </div>
 
-      <div>
-        <Radio/>
+      <div class="subtitle m-mt-sm">Когда выполнить заказ?</div>
+      <div class="flex align-center m-mt-xs">
+        <RadioList
+          :list='radioTimeList'
+          v-model="selectRadioTime"
+          class="m-mr-sm"
+        />
+        <InputDate
+          v-model="dateDelivery"
+          placeholder="Дата"
+        />
       </div>
 
     </Section>
@@ -142,7 +151,24 @@ export default {
 
       promocode: '',
       typeDelivery: { id: 0, label: 'Доставка' },
-      typesDelivery: [{ id: 0, label: 'Доставка' }, { id: 1, label: 'Самовывоз' }]
+      typesDelivery: [{ id: 0, label: 'Доставка' }, { id: 1, label: 'Самовывоз' }],
+      dateDelivery: null,
+      timeDelivery: null,
+
+      radioTimeList: [
+        {
+          id: 0,
+          label: 'Как можно скорее'
+        },
+        {
+          id: 1,
+          label: 'По времени'
+        },
+      ],
+      selectRadioTime: {
+        id: 0,
+        label: 'Как можно скорее'
+      }
     }
   },
   computed: {

@@ -1,5 +1,9 @@
 <template>
   <div class="tabs flex flex-nowrap">
+    <div
+      class="tabs-slider"
+      ref="tabs_slider"
+    ></div>
     <TabsButton
       v-for="(tab, i) of tabs"
       :key="`tab-${i}`"
@@ -8,10 +12,6 @@
     >
       {{prefixTab}} {{tab.label}} {{suffixTab}}
     </TabsButton>
-    <div
-      class="tabs-slider"
-      ref="tabs_slider"
-    ></div>
   </div>
 </template>
 <script>

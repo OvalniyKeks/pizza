@@ -1,1 +1,52 @@
 .radio
+  position: relative
+  display: flex
+  align-items: center
+  margin-right: 24px
+  cursor: pointer
+  & input
+    width: 0
+    height: 0
+    opacity: 0
+    position: absolute
+    z-index: -1
+  & label
+    display: block
+    cursor: pointer
+    width: 16px
+    height: 16px
+    margin-right: 8px
+    border-radius: 50%
+    border: 1px solid $gray
+    &::before
+      content: ''
+      position: absolute
+      border-radius: 50%
+      width: 100%
+      height: 100%
+      transform: scale(1)
+  &:last-child
+    margin-right: 0
+
+  &.active
+    & label
+      position: relative
+      border: 1px solid $primary
+      &::before
+        content: ''
+        position: absolute
+        background: $primary
+        border-radius: 50%
+        transform: scale(0.6)
+
+  &-list
+    display: flex
+    align-items: center
+    &__wrapper
+      font-family: 'SF Pro Text'
+      & .label
+        font-family: "Inter"
+        color: $gray
+        margin-bottom: 12px
+        font-weight: 400
+        font-size: 16px
