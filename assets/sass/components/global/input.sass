@@ -24,10 +24,16 @@
     position: relative
     display: flex
     align-items: center
+    height: 100%
     & .prefix
       position: absolute
       left: 13px
       user-select: none
     & .suffix
       position: absolute
-      right: 0
+      right: 13px
+    & input
+      font-family: 'Inter'
+    & textarea
+      font-family: 'Inter'
+      height: calc( 100% - 26px )

@@ -49,6 +49,7 @@ export default {
     setTab (i) {
       this.currTabIdx = i
       this.$emit('change', this.tabs[i])
+      this.$emit('input', this.tabs[i])
       this.changePositionSlider(i)
     },
     changePositionSlider (i) {

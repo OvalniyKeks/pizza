@@ -2,6 +2,7 @@
   <div
     class="input-wrapper"
     ref="inputwrapper"
+    :style="`${setHeight}; ${setWidth}`"
   >
     <div
       v-if="label"
@@ -17,10 +18,11 @@
       >
         <slot name="prefix"></slot>
       </div>
-      <input
+      <textarea
+        :style="`resize: none`"
         class="input"
         ref="input"
-        :type="type"
+        type="textarea"
         :name="name"
         :placeholder="placeholder"
         :min='min'
@@ -56,11 +58,6 @@ export default {
     }
   },
   props: {
-    type: {
-      type: String,
-      required: false,
-      default: 'text'
-    },
     autocomplete: {
       type: Boolean,
       required: false,
@@ -73,7 +70,8 @@ export default {
     address: Boolean,
     min: [String, Number],
     max: [String, Number],
-    backlight: Boolean
+    height: String,
+    width: String
   },
   data () {
     return {
@@ -85,6 +83,18 @@ export default {
   computed: {
     autocompleteProp () {
       return this.autocompleteCustomText ?? (this.autocomplete ? 'on' : 'off')
+    },
+    setHeight () {
+      if (!this.height) {
+        return ''
+      }
+      return `max-height: ${this.height}; height: ${this.height}`
+    },
+    setWidth () {
+      if (!this.width) {
+        return ''
+      }
+      return `width: ${this.width}; max-width: ${this.width}`
     }
   },
   methods: {
@@ -118,15 +128,6 @@ export default {
       } else {
         this.$refs.label.style.color = ``
       }
-    },
-    setFocusHandler (val) {  
-      this.$refs.input.focus()
-
-      if (val) {
-        this.isFocus = true
-      } else {
-        this.isFocus = false
-      }
     }
   },
   watch: {
@@ -139,9 +140,6 @@ export default {
       } else {
         this.$emit('input', val)
       }
-    },
-    backlight (val) {
-      this.setFocusHandler(val)
     }
   }
 }

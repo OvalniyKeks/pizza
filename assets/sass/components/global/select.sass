@@ -1,0 +1,51 @@
+.select
+  font-family: 'Inter'
+  transition: .1s all ease
+  position: relative
+  & .label
+    font-family: 'Inter'
+    font-size: 14px
+    color: $gray
+    margin-bottom: 8px
+  &-head
+    background: $white
+    border: none
+    outline: 1px solid $lightgray
+    border-radius: 6px
+    height: auto
+    max-width: 100%
+    font-size: 16px
+    line-height: 22px
+    position: relative
+    display: flex
+    align-items: center
+    & input
+      cursor: pointer
+      font-family: 'Inter'
+      font-size: 16px
+      border-radius: 6px
+      width: calc( 100% - 26px )
+      padding: 0 13px
+      height: 48px
+      border: none !important
+      &::placeholder
+        color: $gray
+        font-size: 16px
+      &:focus-visible
+        outline: none
+  &-arrow
+    position: absolute
+    right: 13px
+  &-dropdown
+    position: absolute
+    width: 100%
+    border: 1px solid $lightgray
+    border-bottom-right-radius: 6px
+    border-bottom-left-radius: 6px
+    background: $white
+    z-index: 60
+  &-item
+    padding: 5px 13px
+    cursor: pointer
+    &:hover
+      background: $lightgray

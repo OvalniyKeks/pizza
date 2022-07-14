@@ -30,7 +30,7 @@
     </div>
 
     <div class="container">
-      <CheckAddress />
+      <CheckAddress id="check-address"/>
     </div>
 
     <div class="container">
@@ -38,6 +38,7 @@
         v-for="(category, i) of categories"
         :key="`main-categories-section-${i}`"
         :id="category.id"
+        class="m-mt-lg"
       >
         <SectionTitle class="m-mb-lg">{{category.label}}</SectionTitle>
 
@@ -54,7 +55,7 @@
     </div>
 
     <div class="container">
-      <Section style="max-width: 850px; margin: auto">
+      <Section style="max-width: 850px; margin: auto" class="m-mt-lg">
         <SectionTitle
           class="m-mb-lg"
           style="font-size: 32px"
@@ -68,6 +69,8 @@
         </TextMore>
       </Section>
     </div>
+
+    <CartMobileButton class="desktop-hide"/>
 
     <Modal
       v-model="isModalProduct"

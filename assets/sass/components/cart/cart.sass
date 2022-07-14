@@ -26,3 +26,27 @@
 			&::-webkit-scrollbar-thumb
 				border-radius: 4px
 				background: #B6B6B6
+
+@media screen and ( max-width: $tablet )
+	.cart
+		&-mobile
+			&__button
+				position: fixed
+				right: 20px
+				bottom: 20px
+				z-index: 30
+				border-radius: 50%
+				box-shadow: 0px 2px 8px rgba(25, 25, 25, 0.2)
+				& .count
+					width: 20px
+					height: 20px
+					border: 1px solid $primary
+					background: #fff
+					border-radius: 50%
+					color: $primary
+					display: flex
+					justify-content: center
+					align-items: center
+					position: absolute
+					top: -2px
+					right: -2px

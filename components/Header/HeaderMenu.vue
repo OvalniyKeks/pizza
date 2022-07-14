@@ -1,5 +1,8 @@
 <template>
-  <div class="header-menu">
+  <div
+    class="header-menu"
+    :style="`${setOffsetTop}`"
+  >
 
     <div class="container">
       <HeaderProfile />
@@ -110,6 +113,13 @@
 </template>
 <script>
 export default {
-
+  computed: {
+    offsetTop () {
+      return this.$store.state.interface.currHeightHeader
+    },
+    setOffsetTop () {
+      return `height: calc(100vh - ${this.offsetTop}px); top: ${this.offsetTop}px;`
+    }
+  }
 }
 </script>

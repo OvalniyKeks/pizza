@@ -10,12 +10,12 @@
       Проверить адрес доставки
     </label>
 
-    <br class="desktop-hide" />
-
     <Input
       name="check"
       placeholder="Адрес"
       address
+      :backlight='backlight'
+      id="check-address-input"
     >
     <template v-slot:prefix>
       <img
@@ -29,6 +29,7 @@
       class="h-100"
       height='48px'
       orange
+      center
     >
       Проверить
     </Button>
@@ -38,8 +39,21 @@
 export default {
   data () {
     return {
-      address: {}
+      backlight: false
     }
   },
+  computed: {
+    focusCheckAddress () {
+      return this.$store.state.interface.focusCheckAddress
+    }
+  },
+  watch: {
+    focusCheckAddress (val) {
+      if (val) {
+        this.backlight = !this.backlight
+        this.$store.commit('interface/focus_to_check_address', false)
+      }
+    }
+  }
 }
 </script>

@@ -8,7 +8,7 @@
       class="w-50"
       style="max-width: 450px"
     >
-    <div class="w-50">
+    <div class="w-50 w-100-t">
       <div class="title m-mb-sm">{{localProduct.label}}</div>
       <div class="flex align-center justify-between m-mb-md">
         <ProductElementList
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <ModalClose @click="$emit('input', false)" />
+    <ModalClose @click="closeModal" />
   </div>
 </template>
 <script>
@@ -140,6 +140,9 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.$emit('input', false)
+    },
     image (image) {
       return image ?? this.defaultImage
     },

@@ -31,6 +31,8 @@ export default {
     { src: '@/plugins/vclickoutside.js', mode: 'client' },
     { src: '@/plugins/yandexmap.js', mode: 'client' },
     { src: '@/plugins/vmask.js', mode: 'client' },
+    { src: '@/plugins/datepicker.js', mode: 'client' },
+    { src: '@/plugins/vswipe.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

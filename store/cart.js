@@ -43,6 +43,12 @@ export const getters = {
       price += product.selectSize.price * product.quantity + priceModificators
     }
     return price
+  },
+  currCount: (state) => {
+    if (Array.isArray(state.carts)) {
+      return state.carts.length
+    }
+    return 0
   }
 }
 

@@ -17,7 +17,7 @@
       >
         <slot name="prefix"></slot>
       </div>
-      <input
+      <!-- <input
         class="input"
         ref="input"
         type="text"
@@ -28,7 +28,23 @@
         @focus="setLabelBacklight"
         @blur="setLabelBacklight"
         style="padding-right: 40px"
-      >
+      > -->
+      <client-only>
+        <VueDatePicker
+          v-model="date"
+          format="DD.MM.YYYY"
+        >
+
+          <template #activator="{ date }">
+            <div
+              class="input datepicker"
+              ref="activator"
+            >
+              {{ date }}
+            </div>
+          </template>
+        </VueDatePicker>
+      </client-only>
       <div
         class="suffix"
         style="padding-right: 16px"
@@ -71,7 +87,7 @@ export default {
   },
   data () {
     return {
-      text: '',
+      date: Date.now(),
       showPrompt: false,
       isFocus: false
     }

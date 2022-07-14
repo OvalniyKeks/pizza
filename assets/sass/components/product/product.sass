@@ -104,6 +104,8 @@
     & .subtitle
       font-size: 16px
       font-weight: 600
+      font-family: "Inter"
+      color: #000
     & .total
       font-size: 20px
       color: $primary
@@ -146,6 +148,8 @@
     &-main
       margin-bottom: 30px
       max-width: calc( 50% - 15px )
+    &-modal
+      flex-direction: column
 
 @media screen and ( max-width: $mobile )
   .product
@@ -153,3 +157,11 @@
       width: 100%
       max-width: 100%
       margin-bottom: 30px
+    &-modal
+      padding: 14px
+      position: relative
+    &-element
+      font-size: 12px
+      & .btn
+        width: 80px
+        height: 80px

@@ -9,13 +9,13 @@
         class="logo"
       />
     </NuxtLink>
-    <HeaderCategories class="mobile-hide" />
+    <HeaderCategories class="tablet-hide" />
 
-    <HelpersSpace></HelpersSpace>
+    <HelpersSpace class="tablet-hide"></HelpersSpace>
 
     <Button
       orange
-      class="mobile-hide"
+      class="tablet-hide"
       @click="toggleModalCart"
     >
       <img src="~assets/images/icon/global/cart.svg" />

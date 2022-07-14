@@ -1,5 +1,5 @@
 <template>
-  <div class="section m-mt-lg">
+  <div class="section ">
     <slot></slot>
   </div>
 </template>

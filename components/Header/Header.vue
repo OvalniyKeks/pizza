@@ -2,6 +2,7 @@
   <div
     class="header"
     :class="{'header-scroll': headerFixed}"
+    ref="header"
   >
     <div class="container">
       <HeaderTop />
@@ -9,7 +10,10 @@
 
     <HelpersHr />
 
-    <div class="container">
+    <div
+      class="container"
+      ref="headerBottom"
+    >
       <HeaderBottom />
     </div>
 
@@ -27,6 +31,16 @@ export default {
     currScroll () {
       return this.$store.state.interface.currScroll
     },
+    currHeightHeader () {
+      const header = this.$refs.header
+      const headerBottom = this.$refs.headerBottom
+      if (this.headerFixed) {
+        return headerBottom.clientHeight
+      } else if (header) {
+        return header.clientHeight
+      }
+      return 0
+    }
   },
   watch: {
     currScroll (val) {
@@ -35,6 +49,9 @@ export default {
       } else {
         this.headerFixed = true
       }
+    },
+    currHeightHeader (val) {
+      this.$store.commit('interface/set_curr_height_header', val)
     }
   }
 }
