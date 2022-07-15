@@ -50,3 +50,14 @@
 					position: absolute
 					top: -2px
 					right: -2px
+
+@media screen and ( max-width: $mobile )
+	.cart
+		& .total
+			position: fixed
+			background: #fff
+			bottom: 0
+			width: calc( 100% - 40px )
+			margin-left: -20px
+			padding: 20px
+			z-index: 100

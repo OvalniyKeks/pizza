@@ -220,7 +220,7 @@
 
     <HelpersHr />
 
-    <div class="flex align-center justify-between m-mt-md">
+    <div class="flex align-center justify-between m-mt-md total">
       <div class="total-price">Итого: {{totalPrice}} ₽</div>
       <Button
         orange
