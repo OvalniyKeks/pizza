@@ -23,7 +23,7 @@ export default {
     value: Boolean,
     align: String
   },
-  data() {
+  data () {
     return {
       currScroll: 0
     }
@@ -36,6 +36,20 @@ export default {
     },
     setCurrScrollModal (e) {
       this.currScroll = e.target.scrollTop
+    },
+    changeZIndex (val) {
+      const widthWindow = document.documentElement.clientWidth
+      if (widthWindow > 1024) {
+        return
+      }
+
+      const header = document.documentElement.querySelector('.header')
+      if (val && this.align === 'center') {
+        header.style.zIndex = 1
+      } else {
+        header.style.zIndex = 110
+      }
+
     }
   },
   watch: {
@@ -43,21 +57,11 @@ export default {
       if (val) {
         document.body.style.overflow = "hidden"
         document.querySelector('.layout').style.overflow = "hidden"
-
-        if (this.align === 'center') {
-          const header = document.documentElement.querySelector('.header')
-          header.style.zIndex = 1
-        }
       } else {
         document.body.style.overflow = ""
         document.querySelector('.layout').style.overflow = ""
-
-        if (this.align === 'center') {
-          const header = document.documentElement.querySelector('.header')
-          header.style.zIndex = 110
-        }
       }
-
+      this.changeZIndex(val)
     }
   }
 }

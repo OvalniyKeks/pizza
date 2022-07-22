@@ -44,6 +44,7 @@
           name="name"
           placeholder="Алексей"
           label='Имя*'
+          v-model="contacts.name"
         />
         <Input
           name="phone"
@@ -52,6 +53,7 @@
           v-mask="'+7 (###) ###-##-##'"
           type="tel"
           autocomplete
+          v-model="contacts.phone"
         />
         <Input
           name="email"
@@ -59,6 +61,7 @@
           label='Почта'
           type="email"
           autocomplete
+          v-model="contacts.email"
         />
       </div>
 
@@ -86,6 +89,7 @@
           placeholder="Пушкина"
           label='Улица*'
           autocomplete-custom-text="address-line1"
+          v-model="address.street"
         />
         <div class="flex align-center justify-between m-mt-sm">
           <Input
@@ -93,30 +97,35 @@
             placeholder="1а"
             label='Дом'
             style="max-width: 154px"
+            v-model="address.home"
           />
           <Input
             name="entity"
             placeholder="1"
             label='Подьезд'
             style="max-width: 154px"
+            v-model="address.entry"
           />
           <Input
             name="floor"
             placeholder="2"
             label='Этаж'
             style="max-width: 154px"
+            v-model="address.floor"
           />
           <Input
             name="flat"
             placeholder="3"
             label='Квартира'
             style="max-width: 154px"
+            v-model="address.flat"
           />
           <Input
             name="code"
             placeholder="0000"
             label='Домофон'
             style="max-width: 154px"
+            v-model="address.code"
           />
         </div>
       </div>
@@ -248,6 +257,20 @@ export default {
       isModalProductData: null,
 
       promocode: '',
+
+      contacts: {
+        name: '',
+        phone: null,
+        email: null
+      },
+      address: {
+        street: '',
+        home: '',
+        entry: '',
+        floor: '',
+        flat: '',
+        code: ''
+      },
       typeDelivery: { id: 0, label: 'Доставка' },
       typesDelivery: [{ id: 0, label: 'Доставка' }, { id: 1, label: 'Самовывоз' }],
       dateDelivery: null,
@@ -346,7 +369,45 @@ export default {
       this.isModalProductData = product
       this.isModalProduct = true
     },
+    setDataForOrder () {
+      const data = {}
+
+      data.carts = this.setCartsDataForOrder()
+
+      data.contacts = this.contacts
+      data.contacts.phone = this.$api.convertPhoneToNumberOnly(this.contacts.phone)
+
+      data.type = this.typeDelivery.label
+
+      data.restaurant = this.selectRestaraunt
+
+      data.address = this.address
+
+      data.delivery = this.selectRadioTime
+      data.date = this.dateDelivery,
+      data.time = this.timeDelivery
+
+      return data
+    },
+    setCartsDataForOrder () {
+      const cart = []
+      for (const item of this.carts) {
+        const obj = {
+          id: item.id,
+          label: item.label,
+          image: item.image,
+          compound: item.compound.filters(item => !item.disable),
+          modificators: item.modificators.filters(item => !item.disable),
+          quantity: item.quantity,
+          size: item.selectSize,
+          type: item.selectType
+        }
+        cart.push(obj)
+      }
+      return cart
+    },
     setOrder () {
+      this.setDataForOrder()
       console.log('order')
     }
   }

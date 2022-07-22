@@ -17,18 +17,6 @@
       >
         <slot name="prefix"></slot>
       </div>
-      <!-- <input
-        class="input"
-        ref="input"
-        type="text"
-        :name="name"
-        :placeholder="placeholder"
-        v-model="text"
-        :autocomplete="autocompleteProp"
-        @focus="setLabelBacklight"
-        @blur="setLabelBacklight"
-        style="padding-right: 40px"
-      > -->
       <client-only>
         <VueDatePicker
           v-model="date"
@@ -123,6 +111,28 @@ export default {
         this.$refs.label.style.color = `#FF7010`
       } else {
         this.$refs.label.style.color = ``
+      }
+    },
+    convertUnixToDate (newDate) {
+      let date = newDate
+      if (!date) {
+        date = new Date()
+      }
+      return `${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}.${(date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}`
+    },
+    formatDate (newDate) {
+      newDate = newDate.replace(/-/gi, '.').split('.').reverse().join('.')
+      console.log(newDate)
+      return newDate
+    }
+  },
+  watch: {
+    date (val) {
+      if (val) {
+        if (typeof val === 'number') {
+          this.$emit('input', this.convertUnixToDate()) 
+        }
+        this.$emit('input', this.formatDate(val))
       }
     }
   }

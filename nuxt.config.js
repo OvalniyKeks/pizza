@@ -33,6 +33,7 @@ export default {
     { src: '@/plugins/vmask.js', mode: 'client' },
     { src: '@/plugins/datepicker.js', mode: 'client' },
     { src: '@/plugins/vswipe.js', mode: 'client' },
+    { src: '@/plugins/utils/api.service.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
