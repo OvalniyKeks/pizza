@@ -48,11 +48,11 @@
 <script>
 export default {
   mounted () {
-    if (this.$slots?.prefix) {
-      this.setPrefixPadding()
+    if (!this.$slots?.prefix) {
+      this.$refs.prefix.hidden = true
     }
-    if (this.$slots?.suffix) {
-      this.setSuffixPadding()
+    if (!this.$slots?.suffix) {
+      this.$refs.suffix.hidden = true
     }
   },
   props: {
@@ -88,14 +88,16 @@ export default {
     }
   },
   methods: {
-    setPrefixPadding () {
-      const width = this.$refs.prefix.clientWidth
-      this.$refs.input.style.paddingLeft = `${width + 24}px`
-    },
-    setSuffixPadding () {
-      const width = this.$refs.suffix.clientWidth
-      this.$refs.input.style.paddingRight = `${width + 24}px`
-    },
+    // setPrefixPadding () {
+    //   console.log('awdwa')
+    //   const width = this.$refs.prefix.clientWidth
+    //   this.$refs.input.style.paddingLeft = `${width + 24}px`
+    // },
+    // setSuffixPadding () {
+    //   console.log('awdwa')
+    //   const width = this.$refs.suffix.clientWidth
+    //   this.$refs.input.style.paddingRight = `${width}px`
+    // },
     closePrompt () {
       setTimeout(() => {
         this.showPrompt = false
@@ -119,7 +121,7 @@ export default {
         this.$refs.label.style.color = ``
       }
     },
-    setFocusHandler (val) {  
+    setFocusHandler (val) {
       this.$refs.input.focus()
 
       if (val) {

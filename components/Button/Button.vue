@@ -9,7 +9,18 @@
     v-smooth-scroll
     v-bind="$attrs"
   >
-    <slot></slot>
+    <div
+      class="btn-loading"
+      v-if="loading"
+    >
+      <LoadingSpinner height='30px' />
+    </div>
+    <div
+      class="btn-content"
+      :class="{'column': directionContent == 'content-col', 'row': directionContent === 'content-row', 'hidden': loading}"
+    >
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -24,7 +35,9 @@ export default {
     bordered: Boolean,
     disabled: Boolean,
     center: Boolean,
-    padding: String
+    padding: String,
+    loading: Boolean,
+    directionContent: String
   },
   computed: {
     optionsDefault () {

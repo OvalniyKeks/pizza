@@ -6,6 +6,7 @@
         class="m-mb-lg m-mb-md-m"
         :slides-per-page='8'
         :slides-per-page-mobile='3'
+        center
       >
         <Category
           v-for="(cat, i) of categories"
@@ -30,14 +31,14 @@
     </div>
 
     <div class="container">
-      <CheckAddress id="check-address"/>
+      <CheckAddress id="check-address" />
     </div>
 
     <div class="container">
       <Section
         v-for="(category, i) of categories"
         :key="`main-categories-section-${i}`"
-        :id="category.id"
+        :id="category._id"
         class="m-mt-lg"
       >
         <SectionTitle class="m-mb-lg">{{category.label}}</SectionTitle>
@@ -55,7 +56,10 @@
     </div>
 
     <div class="container">
-      <Section style="max-width: 850px; margin: auto" class="m-mt-lg">
+      <Section
+        style="max-width: 850px; margin: auto"
+        class="m-mt-lg"
+      >
         <SectionTitle
           class="m-mb-lg"
           style="font-size: 32px"
@@ -70,7 +74,7 @@
       </Section>
     </div>
 
-    <CartMobileButton class="desktop-hide"/>
+    <CartMobileButton class="desktop-hide" />
 
     <Modal
       v-model="isModalProduct"
@@ -86,120 +90,152 @@
 </template>
 
 <script>
-import example_compound from '../assets/images/example_compound.svg'
+// import example_compound from '../assets/images/example_compound.svg'
+import placeholderIcon from '../assets/images/icon/global/el_placeholder.svg'
 export default {
   name: 'Main',
 
-  // Удалить потом
-  async asyncData ({ store }) {
-    const images = [
-      'https://oran-g.ru/images/com_hikashop/upload/thumbnails/500x500f/apiProducts/b4103df5-e0ef-4071-a5cb-8a32fcd2c694.jpg',
-      'https://freepngimg.com/thumb/pizza/46-pizza-png-image.png',
-      'https://epizza.su/images/pizza/two-pizza.png'
-    ]
-    for (let i = 0; i < 8; i++) {
-      const obj = {
-        id: Math.floor(Date.now() / Math.random()),
-        new: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
-        top: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
-        image: images[Math.floor(Math.random() * (2 - 0 + 2)) + 0],
-        label: 'Чикен Сладкий Чили',
-        description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соус',
-        quantity: 0,
-        type: [
-          {
-            id: 0,
-            label: 'Традиционное'
-          },
-          {
-            id: 1,
-            label: 'Тонкое'
-          }
-        ],
-        price: [
-          {
-            id: 0,
-            price: 289,
-            size: 20,
-            weight: '200 г'
-          },
-          {
-            id: 1,
-            price: 380,
-            size: 28,
-            weight: '300 г'
-          },
-          {
-            id: 2,
-            price: 400,
-            size: 33,
-            weight: '400 г'
-          },
-        ],
-        modificators: [
-          {
-            id: 0,
-            icon: example_compound,
-            label: 'Моцарелла',
-            price: 59,
-            disable: true
-          },
-          {
-            id: 1,
-            icon: example_compound,
-            label: 'Шампиньоны',
-            price: 59,
-            disable: true
-          },
-          {
-            id: 2,
-            icon: example_compound,
-            label: 'Красный лук',
-            price: 59,
-            disable: true
-          },
-          {
-            id: 3,
-            icon: example_compound,
-            label: 'Сладкий перец',
-            price: 59,
-            disable: true
-          },
-        ],
-        compound: [
-          {
-            id: 0,
-            icon: example_compound,
-            label: 'Моцарелла',
-            price: 59,
-            disable: false
-          },
-          {
-            id: 1,
-            icon: example_compound,
-            label: 'Шампиньоны',
-            price: 59,
-            disable: false
-          },
-          {
-            id: 2,
-            icon: example_compound,
-            label: 'Красный лук',
-            price: 59,
-            disable: false
-          },
-          {
-            id: 3,
-            icon: example_compound,
-            label: 'Сладкий перец',
-            price: 59,
-            disable: false
-          }
-        ]
-      }
-      store.commit('products/set_products', obj)
+  async asyncData ({ $axios, error, store }) {
+    try {
+      const categories = await $axios.$get(`/products/`);
+      const sales = await $axios.$get(`/sale/`);
+
+      categories.map(cat => {
+        cat.products.map(product => {
+          product.compound = product.compound.map(el => {
+            if (!el.icon) {
+              el.icon = placeholderIcon
+            }
+            return { ...el, disable: false }
+          })
+          product.modificators = product.modificators.map(el => {
+            if (!el.icon) {
+              el.icon = placeholderIcon
+            }
+            return { ...el, disable: true }
+          })
+          return product
+        })
+        return cat
+      })
+
+      store.commit('products/set_products', categories)
+      return { categories, sales };
+    } catch (e) {
+      error(e);
     }
   },
+
+  // Удалить потом
+  // async asyncData ({ store }) {
+  //   const images = [
+  //     'https://oran-g.ru/images/com_hikashop/upload/thumbnails/500x500f/apiProducts/b4103df5-e0ef-4071-a5cb-8a32fcd2c694.jpg',
+  //     'https://freepngimg.com/thumb/pizza/46-pizza-png-image.png',
+  //     'https://epizza.su/images/pizza/two-pizza.png'
+  //   ]
+  //   for (let i = 0; i < 8; i++) {
+  //     const obj = {
+  //       id: Math.floor(Date.now() / Math.random()),
+  //       new: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
+  //       top: Math.floor(Math.random() * (1 - 0 + 1)) + 0,
+  //       image: images[Math.floor(Math.random() * (2 - 0 + 2)) + 0],
+  //       label: 'Чикен Сладкий Чили',
+  //       description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соус',
+  //       quantity: 0,
+  //       type: [
+  //         {
+  //           id: 0,
+  //           label: 'Традиционное'
+  //         },
+  //         {
+  //           id: 1,
+  //           label: 'Тонкое'
+  //         }
+  //       ],
+  //       price: [
+  //         {
+  //           id: 0,
+  //           price: 289,
+  //           size: 20,
+  //           weight: '200 г'
+  //         },
+  //         {
+  //           id: 1,
+  //           price: 380,
+  //           size: 28,
+  //           weight: '300 г'
+  //         },
+  //         {
+  //           id: 2,
+  //           price: 400,
+  //           size: 33,
+  //           weight: '400 г'
+  //         },
+  //       ],
+  //       modificators: [
+  //         {
+  //           id: 0,
+  //           icon: example_compound,
+  //           label: 'Моцарелла',
+  //           price: 59,
+  //           disable: true
+  //         },
+  //         {
+  //           id: 1,
+  //           icon: example_compound,
+  //           label: 'Шампиньоны',
+  //           price: 59,
+  //           disable: true
+  //         },
+  //         {
+  //           id: 2,
+  //           icon: example_compound,
+  //           label: 'Красный лук',
+  //           price: 59,
+  //           disable: true
+  //         },
+  //         {
+  //           id: 3,
+  //           icon: example_compound,
+  //           label: 'Сладкий перец',
+  //           price: 59,
+  //           disable: true
+  //         },
+  //       ],
+  //       compound: [
+  //         {
+  //           id: 0,
+  //           icon: example_compound,
+  //           label: 'Моцарелла',
+  //           price: 59,
+  //           disable: false
+  //         },
+  //         {
+  //           id: 1,
+  //           icon: example_compound,
+  //           label: 'Шампиньоны',
+  //           price: 59,
+  //           disable: false
+  //         },
+  //         {
+  //           id: 2,
+  //           icon: example_compound,
+  //           label: 'Красный лук',
+  //           price: 59,
+  //           disable: false
+  //         },
+  //         {
+  //           id: 3,
+  //           icon: example_compound,
+  //           label: 'Сладкий перец',
+  //           price: 59,
+  //           disable: false
+  //         }
+  //       ]
+  //     }
+  //     store.commit('products/set_products', obj)
+  //   }
+  // },
   data () {
     return {
       isModalProduct: false,
@@ -212,13 +248,10 @@ export default {
       this.isModalProduct = true
     }
   },
-  computed: {
-    categories () {
-      return this.$store.state.products.categories
-    },
-    sales () {
-      return this.$store.state.sale.sales
-    }
-  }
+  // computed: {
+  //   categoriesArr () {
+  //     return this.$store.state.products.categories
+  //   }
+  // }
 }
 </script>

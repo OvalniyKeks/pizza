@@ -1,14 +1,21 @@
 <template>
   <div
-    class="flex align-center justify-between product-modal"
+    class="flex  justify-between product-modal"
     v-if="localProduct"
   >
-    <img
-      :src="image(localProduct.image)"
-      class="w-50"
+    <div
+      class="w-50 w-100-t flex justify-center align-center image"
       style="max-width: 450px"
     >
-    <div class="w-50 w-100-t">
+      <img
+        :src="image(localProduct.image)"
+        class="w-100 w-50-t"
+      >
+    </div>
+    <div
+      class="w-100 info"
+      style="max-width: 450px"
+    >
       <div class="title m-mb-sm">{{localProduct.label}}</div>
       <div class="flex align-center justify-between m-mb-md">
         <ProductElementList
@@ -18,28 +25,35 @@
         />
       </div>
       <Tabs
+        v-if="types && types.length > 0"
         :tabs='types'
         :start-value='startType'
         @change="setTypes"
         class="m-mb-sm"
       ></Tabs>
       <Tabs
+        v-if="sizes && sizes.length > 0"
         :tabs='sizes'
         suffixTab='см'
         :start-value='startSize'
         @change="setSizes"
         class="m-mb-md"
       ></Tabs>
-      <div class="subtitle m-mb-sm">Добавьте в пиццу</div>
-      <div class="flex align-center justify-between m-mb-md">
-        <ProductElementList
-          v-model='localProduct.modificators'
-          @change="updateProduct"
-          type='add'
-        />
+      <div v-if="localProduct.modificators && localProduct.modificators.length > 0 ">
+        <div class="subtitle m-mb-sm">Добавьте в пиццу</div>
+        <div class="flex align-center justify-between m-mb-md">
+          <ProductElementList
+            v-model='localProduct.modificators'
+            @change="updateProduct"
+            type='add'
+          />
+        </div>
       </div>
       <div class="flex align-center justify-between">
-        <div class="total">Итого: {{totalPrice}} &#8381; <span class="total-weight">{{totalSize}}</span></div>
+        <div class="total">Итого: {{totalPrice}} &#8381; <span
+            class="total-weight"
+            v-if="totalSize"
+          >{{totalSize}} г</span></div>
         <div style="height: 48px">
           <transition name="product-count">
             <Count
@@ -81,7 +95,7 @@ export default {
     }
   },
   created () {
-    const checkProductInCart = this.$store.state.cart.carts.find(items => items.id == this.product.id)
+    const checkProductInCart = this.$store.state.cart.carts.find(items => items._id == this.product._id)
     if (checkProductInCart) {
       this.isProductInCart = true
       this.localProduct = JSON.parse(JSON.stringify(checkProductInCart))
@@ -109,7 +123,9 @@ export default {
 
       const prices = this.localProduct.price
       for (const price of prices) {
-        price.label = price.size
+        if (price.size) {
+          price.label = price.size
+        }
       }
       return prices
     },

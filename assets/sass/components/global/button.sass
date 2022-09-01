@@ -17,7 +17,23 @@
   &-bordered
     box-sizing: border-box
     border: 1px solid $lightgray
-  &-center
+  &-content
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 100%
+    width: 100%
+    &.column
+      flex-direction: column
+    .row
+      flex-direction: row
+    &.hidden
+      opacity: 0
+  &-loading
+    left: 0
+    height: 100%
+    width: 100%
+    position: absolute
     display: flex
     justify-content: center
     align-items: center

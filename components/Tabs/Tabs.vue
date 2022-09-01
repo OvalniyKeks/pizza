@@ -1,5 +1,8 @@
 <template>
-  <div class="tabs flex flex-nowrap">
+  <div
+    class="tabs flex flex-nowrap"
+    v-if="!error"
+  >
     <div
       class="tabs-slider"
       ref="tabs_slider"
@@ -26,16 +29,20 @@ export default {
     return {
       currTabIdx: 0,
       step: 0,
-      slider: null
+      slider: null,
+
+      error: false
     }
   },
   mounted () {
-    this.setSlider()
+    this.checkTabsError()
+
+    if (!this.error) this.setSlider()
 
     if (this.startValue) {
-      const idx = this.tabs.indexOf(this.tabs.find(tab => tab.id === this.startValue.id))
+      const idx = this.tabs.indexOf(this.tabs.find(tab => tab.label === this.startValue.label))
       this.currTabIdx = idx
-      this.changePositionSlider(idx)
+      if (!this.error) this.changePositionSlider(idx)
     }
   },
   methods: {
@@ -54,6 +61,15 @@ export default {
     },
     changePositionSlider (i) {
       this.slider.style.left = `${this.step * i}%`
+    },
+    async checkTabsError () {
+      for (const tab of this.tabs) {
+        if (!tab.label) {
+          this.error = true
+          break
+        }
+      }
+
     }
   }
 }

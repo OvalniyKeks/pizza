@@ -43,7 +43,7 @@ class ApiService {
     }
   }
 
-  convertPhoneToNumberOnly (data) {
+  convertStringToNumber (data) {
     try {
       if (!data) {
         return null

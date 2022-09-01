@@ -23,7 +23,7 @@
             placeholder="Промокод"
           >
           <template v-slot:suffix>
-            <ButtonAction style="margin-right: -13px" />
+            <ButtonAction />
           </template>
           </Input>
         </div>
@@ -181,7 +181,10 @@
 
     <HelpersHr />
 
-    <Section class="m-mb-lg">
+    <Section
+      class="m-mb-lg"
+      v-if="selectTypePay.id === 0"
+    >
       <SectionTitle
         size='24px'
         class="m-mb-xs"
@@ -204,7 +207,10 @@
           style="max-width: 160px; width: 100%"
         >
         <template v-slot:suffix>
-          <div class="subtitle">₽</div>
+          <div
+            class="subtitle"
+            style="width: 26px"
+          >₽</div>
         </template>
         </Input>
       </div>
@@ -235,6 +241,7 @@
         orange
         height='48px'
         @click="setOrder"
+        :loading='loading'
       >Оформить заказ</Button>
     </div>
 
@@ -353,7 +360,9 @@ export default {
       ],
       selectRestaraunt: null,
 
-      comment: ''
+      comment: '',
+
+      loading: false
     }
   },
   computed: {
@@ -372,43 +381,70 @@ export default {
     setDataForOrder () {
       const data = {}
 
-      data.carts = this.setCartsDataForOrder()
+      data.products = this.setCartsDataForOrder()
 
       data.contacts = this.contacts
-      data.contacts.phone = this.$api.convertPhoneToNumberOnly(this.contacts.phone)
+      data.contacts.phone = this.$api.convertStringToNumber(this.contacts.phone)
+      data.contacts = this.$api.jsonStringify(data.contacts)
 
       data.type = this.typeDelivery.label
 
       data.restaurant = this.selectRestaraunt
 
-      data.address = this.address
+      data.address = this.$api.jsonStringify(this.address)
 
-      data.delivery = this.selectRadioTime
-      data.date = this.dateDelivery,
-      data.time = this.timeDelivery
+      data.pay = this.$api.jsonStringify(this.selectTypePay)
+
+      data.delivery_time = {
+        type: this.selectRadioTime,
+        date: this.dateDelivery,
+        time: this.timeDelivery
+      }
+
+      data.delivery_time = this.$api.jsonStringify(data.delivery_time)
+
+      data.comment = this.comment
+
+      if (this.selectTypePay.id === 0) {
+        data.tip = this.tip
+      }
 
       return data
     },
     setCartsDataForOrder () {
       const cart = []
       for (const item of this.carts) {
+        console.log(item)
         const obj = {
           id: item.id,
           label: item.label,
           image: item.image,
-          compound: item.compound.filters(item => !item.disable),
-          modificators: item.modificators.filters(item => !item.disable),
+          compound: item.compound.filter(item => !item.disable),
+          modificators: item.modificators.filter(item => !item.disable),
           quantity: item.quantity,
           size: item.selectSize,
           type: item.selectType
         }
         cart.push(obj)
       }
-      return cart
+      return this.$api.jsonStringify(cart)
     },
     setOrder () {
-      this.setDataForOrder()
-      console.log('order')
+      this.loading = true
+      // const data = this.setDataForOrder()
+
+      // this.$axios.post('/order/', data)
+      //   .then(res => {
+      //     this.$store.commit('cart/clear_cart')
+      //     this.$router.push(`/order/${res.data.data.id}`)
+      //   })
+      //   .catch(e => {
+      //     console.log(e)
+      //   })
+      //   .finally(() => {
+      //     this.loading = false
+      //   })
+
     }
   }
 }

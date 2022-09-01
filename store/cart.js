@@ -4,7 +4,7 @@ export const state = () => ({
 
 export const mutations = {
   add_product_to_cart (state, product) {
-    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    const idx = state.carts.findIndex(cart => cart._id === product._id)
     if (idx !== -1) {
       state.carts[idx].quantity++
     } else {
@@ -12,7 +12,7 @@ export const mutations = {
     }
   },
   remove_product (state, product) {
-    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    const idx = state.carts.findIndex(cart => cart._id === product._id)
     if (idx !== -1) {
       const item = state.carts[idx]
       if (item.quantity == 1) {
@@ -23,10 +23,13 @@ export const mutations = {
     }
   },
   update_product (state, product) {
-    const idx = state.carts.findIndex(cart => cart.id === product.id)
+    const idx = state.carts.findIndex(cart => cart._id === product._id)
     if (idx !== -1) {
       state.carts.splice(idx, 1, JSON.parse(JSON.stringify(product)))
     }
+  },
+  clear_cart (state) {
+    state.carts = []
   }
 }
 

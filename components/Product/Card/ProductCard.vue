@@ -45,8 +45,9 @@ export default {
   },
   computed: {
     fromPrice () {
-      return this.product?.price[0].price
-    },
+      const priceCase = this.product.price
+      return priceCase[0]?.price
+    }
   },
   methods: {
     image (image) {

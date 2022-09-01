@@ -10,7 +10,7 @@
   &-head
     background: $white
     border: none
-    outline: 1px solid $lightgray
+    border: 1px solid $lightgray
     border-radius: 6px
     height: auto
     max-width: 100%
@@ -19,20 +19,22 @@
     position: relative
     display: flex
     align-items: center
+    box-sizing: border-box
     & input
       cursor: pointer
       font-family: 'Inter'
       font-size: 16px
       border-radius: 6px
-      width: calc( 100% - 26px )
+      width: 100%
       padding: 0 13px
       height: 48px
-      border: none !important
+      border: 0px
+      box-sizing: border-box
       &::placeholder
         color: $gray
         font-size: 16px
-      &:focus-visible
-        outline: none
+      &:focus
+        outline: 1px solid $primary
   &-arrow
     position: absolute
     right: 13px

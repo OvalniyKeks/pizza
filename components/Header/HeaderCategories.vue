@@ -7,7 +7,7 @@
       v-for="(cat, i) of categories"
       :key="`header-category-${i}`"
       class="header-category link"
-      :href='`#${cat.id}`'
+      :href='`#${cat._id}`'
       v-smooth-scroll
     >
       {{cat.label}}

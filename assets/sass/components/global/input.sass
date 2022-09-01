@@ -1,10 +1,9 @@
 .input
   background: $white
   border: none
-  outline: 1px solid $lightgray
-  border-radius: 6px
+  box-sizing: border-box
   height: auto
-  width: calc( 100% - 26px )
+  width: 100%
   max-width: 100%
   font-size: 16px
   line-height: 22px
@@ -13,7 +12,8 @@
   &::placeholder
     color: $gray
   &:focus
-    outline: 1px solid $primary
+    outline: none
+    // border: 1px solid $primary
   &-wrapper
     & .label
       font-family: 'Inter'
@@ -25,15 +25,23 @@
     display: flex
     align-items: center
     height: 100%
+    border: 1px solid $lightgray
+    border-radius: 6px
+    overflow: hidden
+    // padding: 0 13px
     & .prefix
-      position: absolute
-      left: 13px
+      width: auto
+      // position: absolute
+      // left: 13px
+      margin-left: 13px
       user-select: none
     & .suffix
-      position: absolute
-      right: 13px
+      width: auto
+      // position: absolute
+      // right: 26px
     & input
       font-family: 'Inter'
     & textarea
       font-family: 'Inter'
-      height: calc( 100% - 26px )
+      height: 100%
+      width: 100%

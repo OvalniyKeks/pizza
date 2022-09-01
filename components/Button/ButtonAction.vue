@@ -2,8 +2,8 @@
   <Button
     orange
     @click="$emit('click', $event)"
-    height='48px'
-    width='48px'
+    height='50px'
+    width='50px'
   >
     <div class="w-100 h-100 flex align-center justify-center">
       <svg

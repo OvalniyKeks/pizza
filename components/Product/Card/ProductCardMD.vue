@@ -58,10 +58,16 @@ export default {
       return image ?? this.defaultImage
     },
     type (type) {
-      return `${type?.label}, ` ?? ''
+      if (!type?.label) {
+        return
+      }
+      return `${type.label}, ` ?? ''
     },
     size (size) {
-      return `${size.size} см` ?? ''
+      if (!size?.label) {
+        return
+      }
+      return `${size.label} см` ?? ''
     },
     changeQuantity (val) {
       if (val > this.product.quantity) {

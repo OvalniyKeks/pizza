@@ -7,7 +7,7 @@
       :src="image(product.image)"
       class="image m-mr-sm"
     >
-    <div class="w-100">
+    <div class="w-100 flex flex-column justify-between">
       <div
         class="title link"
         style="margin-bottom: 8px"
@@ -19,7 +19,10 @@
           :value='quantity'
           @change="changeQuantity"
         />
-        <div v-if="totalPrice" class="price">{{totalPrice}} ₽</div>
+        <div
+          v-if="totalPrice"
+          class="price"
+        >{{totalPrice}} ₽</div>
       </div>
     </div>
   </Card>
@@ -53,10 +56,16 @@ export default {
       return image ?? this.defaultImage
     },
     type (type) {
-      return `${type?.label}, ` ?? ''
+      if (!type?.label) {
+        return
+      }
+      return `${type.label}, ` ?? ''
     },
     size (size) {
-      return `${size.size} см` ?? ''
+      if (!size?.label) {
+        return
+      }
+      return `${size.label} см` ?? ''
     },
     changeQuantity (val) {
       if (val > this.product.quantity) {

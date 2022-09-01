@@ -1,9 +1,14 @@
 <template>
   <Button
     class="category-slide"
-    :to='`#${category.id}`'
+    :to='`#${category._id}`'
+    direction-content='content-col'
   >
-    <div>{{category.icon}}</div>
+    <ImgSet
+      v-if="category.image"
+      :src="category.image"
+      alt=""
+    />
     <div>{{category.label}}</div>
   </Button>
 </template>
