@@ -88,16 +88,6 @@ export default {
     }
   },
   methods: {
-    // setPrefixPadding () {
-    //   console.log('awdwa')
-    //   const width = this.$refs.prefix.clientWidth
-    //   this.$refs.input.style.paddingLeft = `${width + 24}px`
-    // },
-    // setSuffixPadding () {
-    //   console.log('awdwa')
-    //   const width = this.$refs.suffix.clientWidth
-    //   this.$refs.input.style.paddingRight = `${width}px`
-    // },
     closePrompt () {
       setTimeout(() => {
         this.showPrompt = false
