@@ -80,6 +80,7 @@
       v-model="isModalProduct"
       align='center'
     >
+
       <ProductModal
         v-model="isModalProduct"
         :product='isModalProductData'
